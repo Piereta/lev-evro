@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ЛЕВ-ЕВРО / LEV-EVRO</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe, #ffffff, #e8f5e8);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+        }
+        
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .app-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .app-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #008B8B;
+            margin-bottom: 6px;
+        }
+        
+        .app-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+        
+        .rate-display {
+            font-size: 12px;
+            color: #008B8B;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .rate-note {
+            font-size: 10px;
+            color: #6b7280;
+        }
+        
+        .input-section {
+            margin-bottom: 20px;
+        }
+        
+        .input-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .money-input {
+            width: 100%;
+            padding: 8px 100px 8px 15px;
+            font-size: 45px;
+            font-weight: 600;
+            border: 2px solid;
+            border-radius: 16px;
+            outline: none;
+            background: #fff;
+            height: 60px;
+        }
+        
+        .bgn-style {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+        
+        .bgn-style:focus {
+            border-color: #059669;
+            background: #fff;
+        }
+        
+        .eur-style {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+        
+        .eur-style:focus {
+            border-color: #2563eb;
+            background: #fff;
+        }
+        
+        .currency-symbol {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 600;
+            font-size: 45px;
+        }
+        
+        .bgn-color { color: #10b981; }
+        .eur-color { color: #3b82f6; }
+        
+        .button-area {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .arrow-btn {
+            background: #008B8B;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .clear-btn {
+            width: 100%;
+            padding: 14px;
+            background: #008B8B;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .install-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .instructions-box {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .instructions-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #0369a1;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .instruction-item {
+            font-size: 12px;
+            color: #374151;
+            margin-bottom: 6px;
+            padding-left: 20px;
+        }
+        
+        .close-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            float: right;
+            margin-top: 8px;
+        }
+        
+        .support-area {
+            background: linear-gradient(135deg, #eff6ff, #f0fdf4);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #bfdbfe;
+        }
+        
+        .support-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        
+        .support-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 11px;
+            color: #6b7280;
+        }
+        
+        .plus-icon { color: #10b981; font-weight: bold; }
+        .email-style { color: #008B8B; font-weight: 600; }
+        .iban-style { 
+            font-family: 'Courier New', monospace; 
+            font-size: 10px; 
+            background: rgba(255, 255, 255, 0.5); 
+            padding: 2px 4px; 
+            border-radius: 4px; 
+        }
+        
+        .copyright {
+            text-align: center;
+            font-size: 10px;
+            color: #6b7280;
+            font-weight: bold;
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="app-header">
+            <h1 class="app-title">ЛЕВ-ЕВРО / LEV-EVRO</h1>
+            <p class="app-subtitle">Конвертирай с лекота!</p>
+            <p class="rate-display">1 EUR = 1.95583 BGN</p>
+            <div class="rate-note">
+                <p>Фиксиран валутен курс според БНБ</p>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <label class="input-label">🇧🇬 Български лева (BGN)</label>
+            <div class="input-wrapper">
+                <input type="number" id="bgnAmount" class="money-input bgn-style" placeholder="0.00" step="0.01">
+                <span class="currency-symbol bgn-color">лв</span>
+            </div>
+        </div>
+
+        <div class="button-area">
+            <button class="arrow-btn">
+                <span style="color: white; font-size: 28px;">🔻</span>
+            </button>
+        </div>
+
+        <div class="input-section">
+            <label class="input-label">🇪🇺 Евро (EUR)</label>
+            <div class="input-wrapper">
+                <input type="number" id="eurAmount" class="money-input eur-style" placeholder="0.00" step="0.01">
+                <span class="currency-symbol eur-color">€</span>
+            </div>
+        </div>
+
+        <button class="clear-btn" onclick="clearAll()">Изчисти всичко</button>
+
+        <div id="instructionsPanel" class="instructions-box">
+            <div class="instructions-title">📲 Как да запазите приложението:</div>
+            <div class="instruction-item">📱 Android Chrome: Натиснете ⋮ → "Add to Home screen"</div>
+            <div class="instruction-item">📱 iPhone Safari: Натиснете □↑ → "Add to Home Screen"</div>
+            <div class="instruction-item">📱 Samsung: Натиснете ☰ → "Add page to" → "Home screen"</div>
+            <div class="instruction-item">🎯 След това ще имате икона на началния екран!</div>
+            <button class="close-btn" onclick="hideInstructions()">Затвори</button>
+            <div style="clear: both;"></div>
+        </div>
+
+        <div class="support-area">
+            <p class="support-title">Проектът е безплатен и без реклами!<br>Може да го подкрепите, като:</p>
+            
+            <div class="support-item">
+                <span class="plus-icon">+</span>
+                <span>Споделите приложението с приятели!</span>
+            </div>
+            
+            <div class="support-item">
+                <span class="plus-icon">+</span>
+                <span>Изпратите съобщение с усмивка на <span class="email-style">lev-evro@abv.bg</span></span>
+            </div>
+            
+            <div class="support-item">
+                <span class="plus-icon">+</span>
+                <span>С Банков превод:<br>IBAN: <span class="iban-style">BG45CECB979010E6802501</span><br>Основание: Дарение</span>
+            </div>
+            
+            <p class="copyright">©️ 2025 Piereta Art Studio</p>
+        </div>
+
+        <button class="install-btn" onclick="showInstructions()">ЗАПАЗИ НА ЕКРАНА</button>
+    </div>
+
+    <script>
+        const RATE = 1.95583;
+        const bgnAmount = document.getElementById('bgnAmount');
+        const eurAmount = document.getElementById('eurAmount');
+        
+        bgnAmount.addEventListener('input', function() {
+            const bgn = parseFloat(this.value);
+            if (!isNaN(bgn) && this.value !== '') {
+                eurAmount.value = (bgn / RATE).toFixed(2);
+            } else {
+                eurAmount.value = '';
+            }
+        });
+        
+        eurAmount.addEventListener('input', function() {
+            const eur = parseFloat(this.value);
+            if (!isNaN(eur) && this.value !== '') {
+                bgnAmount.value = (eur * RATE).toFixed(2);
+            } else {
+                bgnAmount.value = '';
+            }
+        });
+        
+        function clearAll() {
+            bgnAmount.value = '';
+            eurAmount.value = '';
+        }
+        
+        function showInstructions() {
+            document.getElementById('instructionsPanel').style.display = 'block';
+        }
+        
+        function hideInstructions() {
+            document.getElementById('instructionsPanel').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
